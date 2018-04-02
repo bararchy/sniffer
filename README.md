@@ -4,6 +4,7 @@ Sniffer is a project to try and decipher network packets from the ETH level and 
 One of the goals of this project is not to relay on libpcap  
 
 ## Installation
+1. [Install Crystal](https://crystal-lang.org/docs/installation/)  
 
 Add this to your application's `shard.yml`:
 
@@ -16,6 +17,11 @@ dependencies:
 ## Usage
 
 You have to run the code as root to allow raw sockets.  
+
+In the root dir run `sudo crystal spec`  
+
+or 
+
 ```crystal
 require "sniffer"
 
