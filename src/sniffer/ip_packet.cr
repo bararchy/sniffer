@@ -1,5 +1,5 @@
 module Sniffer
-  struct IPPacket
+  struct IPPacket < Header
     @version : UInt8
     @ihl : UInt8
     @tos : UInt8
@@ -12,18 +12,18 @@ module Sniffer
     @saddr : UInt32
     @daddr : UInt32
 
-    def initialize(bytes : Bytes)
-      @version = IO::ByteFormat::NetworkEndian.decode(UInt8, bytes[0, 1])
-      @ihl = IO::ByteFormat::NetworkEndian.decode(UInt8, bytes[1, 1])
-      @tos = IO::ByteFormat::NetworkEndian.decode(UInt8, bytes[2, 1])
-      @tot_len = IO::ByteFormat::NetworkEndian.decode(UInt16, bytes[3, 2])
-      @id = IO::ByteFormat::NetworkEndian.decode(UInt16, bytes[5, 2])
-      @frag_off = IO::ByteFormat::NetworkEndian.decode(UInt16, bytes[7, 2])
-      @ttl = IO::ByteFormat::NetworkEndian.decode(UInt8, bytes[9, 1])
-      @protocol = IO::ByteFormat::NetworkEndian.decode(UInt8, bytes[10, 1])
-      @check = IO::ByteFormat::NetworkEndian.decode(UInt16, bytes[11, 2])
-      @saddr = IO::ByteFormat::NetworkEndian.decode(UInt32, bytes[13, 4])
-      @daddr = IO::ByteFormat::NetworkEndian.decode(UInt32, bytes[17, 4])
+    def initialize(io : IO)
+      @version = read_u8(io)
+      @ihl = read_u8(io)
+      @tos = read_u8(io)
+      @tot_len = read_u16(io)
+      @id = read_u16(io)
+      @frag_off = read_u16(io)
+      @ttl = read_u8(io)
+      @protocol = read_u8(io)
+      @check = read_u16(io)
+      @saddr = read_u32(io)
+      @daddr = read_u32(io)
     end
 
     def inspect

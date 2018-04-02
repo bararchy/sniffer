@@ -1,22 +1,24 @@
 module Sniffer
-  struct EtherHeader
+  struct EtherHeader < Header
     getter :ether_dhost, :ether_shost, :ether_type
 
     @ether_dhost : EthMac
     @ether_shost : EthMac
     @ether_type : UInt16
 
-    def initialize(bytes : Bytes)
+    def initialize(io : IO)
       @ether_dhost = StaticArray(UInt8, 6).new(0_u8)
-      bytes[0, 6].each_with_index do |b, i|
-        @ether_dhost[i] = b
-      end
       @ether_shost = StaticArray(UInt8, 6).new(0_u8)
-      bytes[6, 6].each_with_index do |b, i|
-        @ether_shost[i] = b
+
+      6.times do |i|
+        @ether_dhost[i] = read_u8(io)
       end
 
-      @ether_type = IO::ByteFormat::NetworkEndian.decode(UInt16, bytes[12, 2])
+      6.times do |i|
+        ether_shost[i] = read_u8(io)
+      end
+
+      @ether_type = read_u16(io)
     end
 
     def inspect
