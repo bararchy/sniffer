@@ -12,8 +12,9 @@ module Sniffer
         packet = Bytes.new(1024)
         bytes_read, client_addr = s.receive(packet)
         puts "READ: #{bytes_read}\nClient: #{client_addr}"
+        puts packet[0, 14].to_unsafe.as(EtherHeader)
         EtherHeader.new(packet[0, 14]).inspect
-        IPPacket.new(packet[14, bytes_read]).inspect
+        IPPacket.new(packet[14, sizeof(IPPacket)]).inspect
       rescue e : Exception
         puts "Error: #{e.inspect_with_backtrace}"
         next

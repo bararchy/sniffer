@@ -25,7 +25,10 @@ Sniffer.sniff
 
 ## Development
 
-TODO: Write development instructions here
+* [x] ETH Header parse  
+* [ ] IP Header parse  
+* [ ] TCP Header parse  
+* [ ] UDP Header parse
 
 ## Contributing
 
