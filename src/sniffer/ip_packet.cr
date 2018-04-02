@@ -1,5 +1,6 @@
 module Sniffer
   struct IPPacket < Header
+    getter :tot_len, :protocol
     @version : UInt8
     @ihl : UInt8
     @tos : UInt8
@@ -32,6 +33,10 @@ module Sniffer
       puts "Protocol: #{IP_PROTOCOL[@protocol.to_i32]?}"
       puts "Source Address: #{addr2string(@saddr)}"
       puts "Destination Address: #{addr2string(@daddr)}"
+    end
+
+    def protocol_string : String
+      IP_PROTOCOL[@protocol.to_i32]? || ""
     end
 
     def addr2string(addr : UInt32)
