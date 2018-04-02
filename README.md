@@ -32,9 +32,9 @@ Sniffer.sniff
 ## Development
 
 * [x] ETH Header parse  
-* [ ] IP Header parse  
-* [ ] TCP Header parse  
-* [ ] UDP Header parse
+* [x] IP Header parse  
+* [x] TCP Header parse  
+* [x] UDP Header parse
 
 ## Contributing
 
